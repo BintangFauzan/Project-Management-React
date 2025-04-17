@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar {
+    width: 25%;
+    background-color: lightgrey;
+    display: flex; /* Jika Anda ingin menggunakan flexbox untuk layout di dalamnya */
+    flex-direction: column; /* Untuk menyusun item secara vertikal */
+    height: 100vh; /* Jika Anda ingin tinggi sidebar mengisi layar */
+}
+
+.sidebar-title {
+    padding: 16px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: black;
+}
+
+.sidebar-link:hover {
+    background-color: #ddd;
+}
+.contentTitle {
+    font-family: 'Caprasimo', cursive;
+    font-size: 3rem;
+    margin: 0 auto 3rem auto;
+    text-align: center;
+}
+
+.paragraph-center{
+    text-align: center;
+}
+
+.start-project-buttons {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#project-title{
+    font-family: 'Caprasimo', cursive;
+    padding-left: 3rem;
+}
+
+#project-title h2{
+    font-size: 20px;
+    font-style: italic;
+}
+#project-title label{
+    font-size: 20px;
+    font-style: italic;
+}
+#project-title input{
+    width: 80%;
+    /*padding: 10px;*/
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+#task{
+    font-family: 'Caprasimo', cursive;
+    padding: 15px 32px;
+    padding-left: 3rem;
+}
+#task h2{
+    font-size: 30px;
+    font-style: italic;
+}
+#task input{
+    width: 80%;
+    /*padding: 10px;*/
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
