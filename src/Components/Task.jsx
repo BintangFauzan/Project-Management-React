@@ -34,8 +34,8 @@ export default function Task({content, onSaveTask, listTugas}) {
                 </form>
                 <h2>Daftar Tugas</h2>
                 <ul>
-                    {daftarTugas.map((daftarTugas) => (
-                        <li key={daftarTugas}>{daftarTugas}</li>
+                    {daftarTugas.map((daftarTugas, index) => (
+                        <li key={index}>{daftarTugas.task}</li>
                     ))}
                 </ul>
             </section>
