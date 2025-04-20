@@ -2,6 +2,7 @@ import MainContent from "./Components/MainContent.jsx";
 import Sidebar from "./Components/Sidebar.jsx";
 import Task from "./components/Task.jsx"
 import DaftarTugas from "./components/DaftarTugas.jsx";
+import Notification from "./Components/Notification.jsx";
 import {useState} from "react";
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
     const [isAddProject, setIsAddProject] = useState([]);
     const [isAddTask, setIsAddTask] = useState([]);
     const [selectedProjectId, setSelectedProjectId] = useState(null);
+    const [notification, setNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState(null);
 
     //Masih perlu perbaikan
     function handleCancelProject(){
@@ -16,13 +19,26 @@ function App() {
     }
 
     function handleSaveProject(newProjectData){
-      if (!newProjectData.title && !newProjectData.description && !newProjectData.date && !newProjectData.date){
+        // let notification = <Notification message={"Data proyek sudah ada"}/>
+      if (!newProjectData.title || !newProjectData.description || !newProjectData.date){
+          setNotificationMessage("harap isi semua data")
+          setNotification(true);
+          setTimeout(() =>{setNotification(false);}, 3000);
           console.log('Harap Isi Semua Data');
+          return; //Untuk menghentikan fungsi
+      }
+      const isDuplicateTitle =  isAddProject.some((project) => project.title === newProjectData.title);
+      if (isDuplicateTitle){
+          console.log("Duplicate Title ", newProjectData.title);
+          // alert('Judul proyek sudah ada. Harap gunakan judul yang berbeda.');
+          setNotificationMessage("Duplicate Title");
+          setNotification(true)
+          setTimeout(()=>{setNotification(false)},3000);
       }else {
-          setIsAddProject((prevData) => [...prevData, {...newProjectData, id: newProjectData.title}]);
-          console.log('Data Proyek baru:',newProjectData);
+          setIsAddProject((preData) => [...preData,{...newProjectData , id: newProjectData.title}]);
+          console.log("Data proyek", newProjectData);
           setAddProjectVisible(false);
-          setSelectedProjectId(newProjectData.title)
+          setSelectedProjectId(newProjectData.title);
       }
     }
 
@@ -35,6 +51,13 @@ function App() {
         }
     }
 
+    function handleClearLastTask(taskRemove) {
+        setIsAddTask((prevTasks) => {
+            const newTasks = prevTasks.filter((_, index) => index !== taskRemove);
+            return newTasks;
+        });
+    }
+
     function handleSelectedProjectList(selectedList){
         setSelectedProjectId(selectedList);
         console.log("ini id title",selectedList);
@@ -44,7 +67,7 @@ function App() {
     const taskForSelectedProject = isAddTask.filter(task => task.projectId === selectedProjectId);
 
     // Main content halaman isi mendaftar project
-    let mainContentVisible = <Task onSaveTask={handleSaveTask} content={selectedProject ? [selectedProject] : []} listTugas={taskForSelectedProject} />
+    let mainContentVisible = <Task onSaveTask={handleSaveTask} content={selectedProject ? [selectedProject] : []} listTugas={taskForSelectedProject} onClearLastTask={handleClearLastTask}  />
 
     if(addProjectVisible === true){
         mainContentVisible = <MainContent cancel={handleCancelProject} onSaveProject={handleSaveProject}/>;
@@ -53,6 +76,7 @@ function App() {
     <>
         <div className='flex'>
             <Sidebar className="w-1/4" onClick={handleCancelProject} listContent={isAddProject} onProjectSelect={handleSelectedProjectList}/>
+            {notification && <Notification message={notificationMessage}/>}
             {mainContentVisible}
         </div>
     </>

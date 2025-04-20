@@ -92,3 +92,36 @@
     transition: 0.5s;
     outline: none;
 }
+
+.clear{
+    padding: 15px 32px;
+    padding-left: 3rem;
+}
+
+
+.notification {
+    position: absolute;
+    top: 2rem;
+    right: 10rem;
+    padding: 1rem;
+    border-radius: 4px;
+    background: rgba(118, 234, 189, 0.8);
+    color: black;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    animation: fade-slide-in-from-left 0.3s ease-out;
+}
+
+.notification p {
+    margin: 0;
+}
+
+@keyframes fade-slide-in-from-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
